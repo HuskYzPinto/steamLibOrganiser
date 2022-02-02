@@ -1,6 +1,8 @@
 package database
 
 import (
+	"bytes"
+	"encoding/json"
 	"fmt"
 	"io"
 	"net/http"
@@ -12,11 +14,19 @@ func GetGameList() io.ReadCloser {
 	return resp.Body
 }
 
-func ParseGameList(gameList io.ReadCloser) {
+func ParseGameList(gameList io.ReadCloser) string {
 	result, _ := io.ReadAll(gameList)
-	fmt.Printf("%+v", string(result))
+	var out bytes.Buffer
+	err := json.Indent(&out, result, "", "  ")
+	if err != nil {
+		return ""
+	}
+	fmt.Printf("%+v", out.String())
+	return out.String()
 }
 
-func SaveGameList(gameStringList []string) {
-
-}
+//
+//func SaveGameList(gameList string) {
+//
+//
+//}

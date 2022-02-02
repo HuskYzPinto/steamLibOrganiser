@@ -7,7 +7,6 @@ import (
 func main() {
 	rawList := database.GetGameList()
 	database.ParseGameList(rawList)
-	//
-	//fmt.Printf("%+v", parsedList)
-	//fmt.Printf("%T", parsedList)
+
+	//database.SaveGameList(parsedList)
 }
